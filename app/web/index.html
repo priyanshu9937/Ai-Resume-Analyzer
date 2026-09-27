@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#17251f">
+    <title>Sift | Resume review</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="Sift home">
+          <span class="brand-mark" aria-hidden="true">s</span>
+          <span class="brand-name">sift<span class="brand-period">.</span></span>
+        </a>
+
+        <div class="workspace-label">CAREER OFFICE <span>01</span></div>
+        <nav class="side-nav">
+          <a class="nav-link active" href="#resume-intake"><span class="nav-index">01</span> Resume review</a>
+          <a class="nav-link" href="#role-fit"><span class="nav-index">02</span> Role fit</a>
+          <a class="nav-link" href="#readout"><span class="nav-index">03</span> Readout</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-note"><span class="privacy-dot"></span><span>Private workspace<br><strong>Files stay on this server</strong></span></div>
+          <button class="access-button" id="access-toggle" type="button" aria-expanded="false">
+            <span class="access-icon" aria-hidden="true">⌑</span> Access key <span class="access-chevron">+</span>
+          </button>
+          <form class="access-panel" id="access-form" hidden>
+            <label for="access-token">API access token</label>
+            <div class="access-entry">
+              <input id="access-token" type="password" autocomplete="current-password" placeholder="Paste token">
+              <button type="submit" aria-label="Save access token">↵</button>
+            </div>
+            <button class="forget-token" id="forget-token" type="button">Forget this session's key</button>
+          </form>
+          <div class="sidebar-footnote">SIFT / FIELD NOTES FOR WORK</div>
+        </div>
+      </aside>
+
+      <main class="main-content" id="top">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>Resume review</strong></div>
+          <div class="topbar-right"><span class="system-status"><span class="status-dot"></span> Local engine</span><span class="topbar-rule"></span><span class="edition">EDITION 01</span></div>
+        </header>
+
+        <div class="content-wrap">
+          <section class="page-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> CAREER INTELLIGENCE <span class="eyebrow-number">/ 001</span></div>
+              <h1>Resume <em>review</em></h1>
+              <p class="heading-note">A sharper read on the work you have done.</p>
+            </div>
+            <div class="heading-stamp" aria-hidden="true"><span>FIELD</span><b>01</b><span>NOTES</span></div>
+          </section>
+
+          <div class="workspace-grid">
+            <div class="input-column">
+              <section class="work-section" id="resume-intake" aria-labelledby="source-title">
+                <div class="section-heading">
+                  <div class="section-kicker"><span>01</span> SOURCE</div>
+                  <h2 id="source-title">The document</h2>
+                </div>
+                <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Choose a PDF or DOCX resume">
+                  <input id="resume-file" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+                  <div class="drop-graphic" aria-hidden="true"><span class="paper-corner"></span><span class="paper-line line-one"></span><span class="paper-line line-two"></span><span class="paper-line line-three"></span><span class="paper-plus">+</span></div>
+                  <div class="drop-copy"><strong>Bring your resume into focus.</strong><span>Drop a file here or <u>choose from your computer</u></span><small>PDF or DOCX <i>·</i> up to 5 MB</small></div>
+                  <span class="drop-arrow" aria-hidden="true">↗</span>
+                </div>
+
+                <div class="file-row" id="file-row" hidden>
+                  <div class="file-type" id="file-type">PDF</div>
+                  <div class="file-description"><strong id="file-name">resume.pdf</strong><span id="file-meta">Ready to review</span></div>
+                  <button class="icon-button" id="remove-file" type="button" aria-label="Remove resume" title="Remove resume">×</button>
+                </div>
+                <button class="primary-button" id="analyze-button" type="button" disabled><span>Review resume</span><span class="button-arrow">↗</span></button>
+                <p class="form-message" id="upload-message" role="status" aria-live="polite"></p>
+              </section>
+
+              <section class="work-section role-section" id="role-fit" aria-labelledby="role-title">
+                <div class="section-heading section-heading-inline">
+                  <div><div class="section-kicker"><span>02</span> DIRECTION</div><h2 id="role-title">A role in mind?</h2></div>
+                  <span class="optional-label">OPTIONAL</span>
+                </div>
+                <label class="visually-hidden" for="job-description">Paste a job description</label>
+                <textarea id="job-description" maxlength="30000" placeholder="Paste a job description to compare its language with your experience..."></textarea>
+                <div class="role-actions"><span id="job-counter">0 / 30,000</span><button class="text-button" id="match-button" type="button" disabled>Compare role <span>↗</span></button></div>
+                <div class="match-result" id="match-result" hidden aria-live="polite"></div>
+                <p class="form-message" id="match-message" role="status" aria-live="polite"></p>
+              </section>
+            </div>
+
+            <section class="readout-section" id="readout" aria-labelledby="readout-title">
+              <div class="readout-topline"><span>03 / YOUR READOUT</span><span class="readout-mark">S—01</span></div>
+              <div class="readout-empty" id="readout-empty">
+                <div class="empty-orbit" aria-hidden="true"><span class="orbit-center"></span><span class="orbit-point"></span></div>
+                <div class="empty-label">WAITING FOR A DOCUMENT</div>
+                <h2 id="readout-title">Room for<br><em>your story.</em></h2>
+                <p>Your review will take shape here.</p>
+                <div class="empty-index"><span>ANALYSIS</span><span>— — —</span></div>
+              </div>
+              <div class="readout-results" id="readout-results" hidden>
+                <div class="result-person"><div><div class="result-eyebrow">CANDIDATE PROFILE</div><h2 id="candidate-name">Your profile</h2><p id="candidate-summary"></p></div><div class="score-disc" id="score-disc" aria-label="ATS score"><div><strong id="ats-score">0</strong><span>ATS</span></div></div></div>
+                <div class="score-caption"><span>Resume signal</span><span class="score-caption-value" id="score-caption-value">— / 100</span></div>
+                <div class="score-track"><span id="score-track-fill"></span></div>
+                <div class="result-facts"><div><span>EXPERIENCE</span><strong id="experience-years">—</strong></div><div><span>SKILLS FOUND</span><strong id="skill-count">—</strong></div><div><span>SECTIONS</span><strong id="section-count">—</strong></div></div>
+                <div class="result-block"><div class="result-block-title"><span>01</span> Skills in the mix</div><div class="skill-list" id="skill-list"></div></div>
+                <div class="result-block result-columns"><div><div class="result-block-title"><span>02</span> Strengths</div><ul id="strength-list"></ul></div><div><div class="result-block-title"><span>03</span> Weak points &amp; next steps</div><ul id="improvement-list"></ul></div></div>
+                <div class="analysis-foot"><span id="analysis-source">STRUCTURED REVIEW</span><span id="candidate-contact"></span></div>
+              </div>
+              <div class="readout-footer"><span>PERSONAL DATA / HANDLE WITH CARE</span><span>© SIFT FIELD OFFICE</span></div>
+            </section>
+          </div>
+          <footer class="page-footer"><span>Built for thoughtful next steps.</span><span>LOCAL WORKSPACE <b>●</b></span></footer>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
