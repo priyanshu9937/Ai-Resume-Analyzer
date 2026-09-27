@@ -63,4 +63,16 @@ This project demonstrates practical implementation of **Python development, REST
 * Resume-to-job semantic matching using embeddings
 * Personalized career roadmap
 
+## Deploy on Render
+
+The repository includes a Render Blueprint in `render.yaml`. It creates a Python web service, a private PostgreSQL database, and a persistent disk for uploaded resumes. The web service and disk use a paid Render plan; review the current pricing in Render before creating the Blueprint. The disk keeps uploads across restarts but limits the service to one instance. For horizontal scaling, replace local file storage with an object store such as S3 or Cloudflare R2 before removing the disk.
+
+1. Push the project to GitHub and sign in to the [Render Dashboard](https://dashboard.render.com/).
+2. Choose **New +** → **Blueprint**, connect the GitHub repository, and select the `main` branch.
+3. Review the resources and costs shown from `render.yaml`, then create the Blueprint. Render generates `API_ACCESS_TOKEN` and privately connects the service to PostgreSQL.
+4. When the deploy finishes, open the service's `onrender.com` URL. In the app sidebar, open **Access key** and paste the value of `API_ACCESS_TOKEN` from the web service's Render environment settings.
+5. Gemini is optional. To enable AI-generated analysis, add `GEMINI_API_KEY` in the service's Render environment settings and redeploy. Without it, analysis uses the built-in local fallback.
+
+Render's health check uses `/health`. The Blueprint sets `ENVIRONMENT=production`, so missing or weak API tokens prevent startup. Do not put the generated token or Gemini key in GitHub, `render.yaml`, or frontend code.
+
 **AI Resume Analyzer — Analyze your resume. Identify the gaps. Improve your chances. 🚀**

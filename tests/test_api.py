@@ -73,6 +73,11 @@ def test_production_requires_strong_api_token() -> None:
         Settings(api_access_token="short")
 
 
+def test_postgres_urls_use_async_driver() -> None:
+    assert Settings(database_url="postgres://user:pass@host/db").database_url == "postgresql+asyncpg://user:pass@host/db"
+    assert Settings(database_url="postgresql://user:pass@host/db").database_url == "postgresql+asyncpg://user:pass@host/db"
+
+
 @pytest.mark.asyncio
 async def test_api_requires_configured_access_token(monkeypatch: pytest.MonkeyPatch) -> None:
     token = "local-test-token-with-at-least-32-characters"
