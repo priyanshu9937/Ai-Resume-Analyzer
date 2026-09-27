@@ -75,4 +75,17 @@ The repository includes a Render Blueprint in `render.yaml`. It creates a Python
 
 Render's health check uses `/health`. The Blueprint sets `ENVIRONMENT=production`, so missing or weak API tokens prevent startup. Do not put the generated token or Gemini key in GitHub, `render.yaml`, or frontend code.
 
+## Deploy the frontend on Vercel
+
+Deploy the frontend separately from the Render backend:
+
+1. Deploy the backend on Render first and copy its public service URL, for example `https://ai-resume-analyzer.onrender.com`.
+2. In `app/web/config.js`, set `window.SIFT_API_BASE_URL` to that public backend URL. This URL is public configuration, not a secret.
+3. Push the change to GitHub. In Vercel, choose **Add New...** → **Project** and import this repository.
+4. Set **Root Directory** to `app/web`, **Framework Preset** to **Other**, and leave Build Command empty. Deploy the project; `index.html`, `styles.css`, `app.js`, and `config.js` are static files.
+5. Copy the deployed Vercel origin (for example, `https://your-project.vercel.app`). In Render's web service environment settings, set `CORS_ORIGINS` to that exact origin, then redeploy the backend. Add any custom Vercel domain to the comma-separated list too.
+6. Open the Vercel site. In **Access key**, enter `API_ACCESS_TOKEN` from the Render service's environment settings. The UI stores it only in the current browser session. Never add this token to `config.js`, Vercel client-side environment variables, or GitHub.
+
+The production API currently uses one shared access token, not individual user accounts. Treat the Vercel site as a private/demo app and share the token only with trusted users.
+
 **AI Resume Analyzer — Analyze your resume. Identify the gaps. Improve your chances. 🚀**

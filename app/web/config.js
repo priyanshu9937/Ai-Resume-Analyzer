@@ -1,0 +1,1 @@
+window.SIFT_API_BASE_URL = "";

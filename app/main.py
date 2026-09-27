@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routes import analysis, health, job_match, resumes
@@ -69,9 +69,4 @@ app.include_router(health.router)
 app.include_router(resumes.router)
 app.include_router(analysis.router)
 app.include_router(job_match.router)
-app.mount("/assets", StaticFiles(directory=web_directory), name="assets")
-
-
-@app.get("/", include_in_schema=False)
-async def frontend() -> FileResponse:
-    return FileResponse(web_directory / "index.html")
+app.mount("/", StaticFiles(directory=web_directory, html=True), name="frontend")

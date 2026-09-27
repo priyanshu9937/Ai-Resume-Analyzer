@@ -4,6 +4,7 @@ const dropZone = byId("drop-zone");
 const analyzeButton = byId("analyze-button");
 const matchButton = byId("match-button");
 const toast = byId("toast");
+const apiBaseUrl = (window.SIFT_API_BASE_URL || "").replace(/\/+$/, "");
 let currentResumeId = null;
 let selectedFile = null;
 let toastTimer;
@@ -14,7 +15,7 @@ function apiHeaders(extra = {}) {
 }
 
 async function request(url, options = {}) {
-  const response = await fetch(url, { ...options, headers: apiHeaders(options.headers || {}) });
+  const response = await fetch(`${apiBaseUrl}${url}`, { ...options, headers: apiHeaders(options.headers || {}) });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     if (response.status === 401) openAccessPanel();

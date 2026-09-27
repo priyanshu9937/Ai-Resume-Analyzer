@@ -54,16 +54,20 @@ async def test_health_and_docs() -> None:
 async def test_frontend_and_assets_are_served() -> None:
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         page = await client.get("/")
-        styles = await client.get("/assets/styles.css")
-        script = await client.get("/assets/app.js")
+        styles = await client.get("/styles.css")
+        config = await client.get("/config.js")
+        script = await client.get("/app.js")
     assert page.status_code == 200
     assert "Sift | Resume review" in page.text
     assert page.headers["x-content-type-options"] == "nosniff"
     assert page.headers["x-frame-options"] == "DENY"
     assert styles.status_code == 200
     assert "--forest: #17251f" in styles.text
+    assert config.status_code == 200
+    assert 'window.SIFT_API_BASE_URL = ""' in config.text
     assert script.status_code == 200
     assert "function renderAnalysis" in script.text
+    assert "apiBaseUrl" in script.text
 
 
 def test_production_requires_strong_api_token() -> None:
